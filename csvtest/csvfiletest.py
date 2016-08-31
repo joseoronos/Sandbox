@@ -1,6 +1,7 @@
 import csv
 from operator import itemgetter
 
+
 def load_files():
     f_read = open("items.csv", "r")
     csv_f = csv.reader(f_read)
@@ -9,6 +10,22 @@ def load_files():
         items.append(row)
     f_read.close()
     return items
+
+
+def add_item():
+    new_product_info = []
+    user_product = input("Item name: ")
+    product_price = input("Price: $")
+    product_priority = input("Priority: ")
+    req = "r"
+    new_product_info.append(user_product)
+    new_product_info.append(product_price)
+    new_product_info.append(product_priority)
+    new_product_info.append(req)
+
+    print("{}, ${} (priority {}) added to the shopping list".format(user_product, product_price, product_priority))
+    return new_product_info
+
 
 def main():
     print("Shopping List 0.1 - by Jose Oronos")
@@ -46,17 +63,8 @@ def main():
                 print(sorted(cmp_list, key=itemgetter(2)))
         elif user_choice == "a":
             print("You chose A")
-            new_product_info = []
-            user_product = input("Item name: ")
-            product_price = input("Prioe: $")
-            product_priority = input("Priority: ")
-            req = "r"
-            new_product_info.append(user_product)
-            new_product_info.append(product_price)
-            new_product_info.append(product_priority)
-            new_product_info.append(req)
-            item_list.append(new_product_info)
-            print("{}, ${} (priority {}) added to the shopping list".format(user_product, product_price, product_priority))
+            new_item = add_item()
+            item_list.append(new_item)
         elif user_choice == "m":
             print("You chose M")
         else:
@@ -69,8 +77,9 @@ def main():
         print("Q - Quit")
         user_choice = input("Please select an option: ").lower()
 
-    file_save = open("items.csv", "a")
+    file_save = open("items.csv", "w")
     for item in item_list:
+        item = ",".join(item)
         file_save.write(str(item) + "\n")
     file_save.close()
 
