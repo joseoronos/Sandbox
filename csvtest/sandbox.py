@@ -1,34 +1,48 @@
 import csv
 
-def output_data():
+
+
+def load_data():
     with open("items.csv", "r") as test_file:
         test_file_reader = csv.reader(test_file)
         file_list = []
         for row in test_file_reader:
-            if len(row) != 0:
-                file_list = file_list + [row]
+            file_list += [row]
 
     test_file.close()
+    return file_list
 
+
+def show_required_list(file_list):
     for item in file_list:
-        print(item)
+        if item[3] == "r":
+            print(item)
+
+
+def show_completed_list(file_list):
+    for item in file_list:
+        if item[3] == "c":
+            print(item)
+
 
 def main():
-    in_file = open("items.csv", "r")
     print("Shopping List 0.1 - by Jose Oronos")
     print("Menu: ")
-    print("""R - List required items
-C - List completed items
-A - Add new item
-M - Mark an item as completed
-Q - Quit""")
+    print("R - List required items")
+    print("C - List completed items")
+    print("A - Add new item")
+    print("M - Mark an item as completed")
+    print("Q - Quit")
     user_choice = input("Please select an option: ").lower()
     while user_choice != "q":
         if user_choice == "r":
             print("You chose R")
-            output_data()
+            required_items = load_data()
+            show_required_list(required_items)
         elif user_choice == "c":
             print("You chose C")
+            completed_items = load_data()
+            show_completed_list(completed_items)
         elif user_choice == "a":
             print("You chose A")
             ting_name = input("Enter ting: ")
@@ -41,13 +55,16 @@ Q - Quit""")
             test_file.close()
         elif user_choice == "m":
             print("You chose M")
-        print("""R - List required items
-C - List completed items
-A - Add new item
-M - Mark an item as completed
-Q - Quit""")
+        else:
+            print("Invalid option, please choose again")
+        print("Menu: ")
+        print("R - List required items")
+        print("C - List completed items")
+        print("A - Add new item")
+        print("M - Mark an item as completed")
+        print("Q - Quit")
         user_choice = input("Please select an option: ").lower()
     print("Done")
 
-main()
 
+main()
