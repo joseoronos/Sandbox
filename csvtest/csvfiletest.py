@@ -1,14 +1,19 @@
 import csv
+from operator import itemgetter
 
+def load_files():
+    f_read = open("items.csv", "r")
+    csv_f = csv.reader(f_read)
+    items = []
+    for row in csv_f:
+        items.append(row)
+    f_read.close()
+    return items
 
 def main():
     print("Shopping List 0.1 - by Jose Oronos")
 
-    f = open("items.csv")
-    csv_f = csv.reader(f)
-    items = []
-    for row in csv_f:
-        items.append(row)
+    item_list = load_files()
 
     print("Menu: ")
     print("R - List required items")
@@ -22,23 +27,23 @@ def main():
         if user_choice == "r":
             print("You chose R")
             req_list = []
-            for thing in items:
+            for thing in item_list:
                 if thing[3] == "r":
                     req_list.append(thing)
             if len(req_list) == 0:
                 print("No required items")
             else:
-                print(req_list)
+                print(sorted(req_list, key=itemgetter(2)))
         elif user_choice == "c":
             print("You chose C")
             cmp_list = []
-            for thing in items:
+            for thing in item_list:
                 if thing[3] == "c":
                     cmp_list.append(thing)
             if len(cmp_list) == 0:
                 print("No completed items")
             else:
-                print(cmp_list)
+                print(sorted(cmp_list, key=itemgetter(2)))
         elif user_choice == "a":
             print("You chose A")
             new_product_info = []
@@ -50,7 +55,7 @@ def main():
             new_product_info.append(product_price)
             new_product_info.append(product_priority)
             new_product_info.append(req)
-            items.append(new_product_info)
+            item_list.append(new_product_info)
             print("{}, ${} (priority {}) added to the shopping list".format(user_product, product_price, product_priority))
         elif user_choice == "m":
             print("You chose M")
@@ -63,6 +68,12 @@ def main():
         print("M - Mark an item as completed")
         print("Q - Quit")
         user_choice = input("Please select an option: ").lower()
+
+    file_save = open("items.csv", "a")
+    for item in item_list:
+        file_save.write(str(item) + "\n")
+    file_save.close()
+
     print("Done")
 
 
