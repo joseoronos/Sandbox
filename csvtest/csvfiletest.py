@@ -67,7 +67,7 @@ def main():
                 sorted_cmp_list = sorted(cmp_list, key=itemgetter(2))
                 count = 0
                 for item in sorted_cmp_list:
-                    print("{}. {} ${} ({})".format(count, item[0], item[1], item[2]))
+                    print("{}. {:<19} ${:>7} ({})".format(count, item[0], item[1], item[2]))
                     count += 1
         elif user_choice == "a":
             print("You chose A")
