@@ -50,7 +50,11 @@ def main():
             if len(req_list) == 0:
                 print("No required items")
             else:
-                print(sorted(req_list, key=itemgetter(2)))
+                sorted_req_list = sorted(req_list, key=itemgetter(2))
+                count = 0
+                for item in sorted_req_list:
+                    print("{}. {:<19} ${:>7} ({})".format(count, item[0], item[1], item[2]))
+                    count += 1
         elif user_choice == "c":
             print("You chose C")
             cmp_list = []
@@ -60,7 +64,11 @@ def main():
             if len(cmp_list) == 0:
                 print("No completed items")
             else:
-                print(sorted(cmp_list, key=itemgetter(2)))
+                sorted_cmp_list = sorted(cmp_list, key=itemgetter(2))
+                count = 0
+                for item in sorted_cmp_list:
+                    print("{}. {} ${} ({})".format(count, item[0], item[1], item[2]))
+                    count += 1
         elif user_choice == "a":
             print("You chose A")
             new_item = add_item()
