@@ -16,6 +16,7 @@ print(items)
 f.close()
 """
 
+
 def user_choice(item_list):
     user_delete = input("Which one would you like to delete?: ")
     thing_count = 0
@@ -46,5 +47,21 @@ def main():
 
     user_choice(item_list)
 
+main()
+
+
+"""
+def main():
+    num_list = []
+    while True:
+        try:
+            userInput = int(input("Number: "))
+            num_list.append(userInput)
+            break
+        except ValueError:
+            print("Not an integer! Try again.")
+            continue
+
+    print(num_list)
 main()
 
