@@ -18,17 +18,17 @@ f.close()
 
 
 def user_choice(item_list):
-    user_delete = input("Which one would you like to delete?: ")
+    user_delete = input("Which one would you like to replace with the letter 'A'?: ")
     thing_count = 0
     new_list = []
     for thing in item_list:
-        item = "{}. {}".format(thing_count ,thing)
+        item = "{}. {}".format(thing_count, thing)
         thing_count += 1
         new_list.append(item)
     for item in new_list:
         if item[0] == user_delete:
             print(user_delete)
-            new_list.remove(item)
+            item[3].replace(item[3], "A") + item
     print(new_list)
 
 
@@ -64,4 +64,5 @@ def main():
 
     print(num_list)
 main()
+"""
 

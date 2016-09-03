@@ -22,10 +22,10 @@ def add_item():
 
     while True:
         try:
-            product_price = int(input("Price: $"))
+            product_price = float(input("Price: $"))
             while product_price <= 0:
                 print("Price must be >= 0")
-                product_price = int(input("Price: "))
+                product_price = float(input("Price: "))
             break
         except ValueError:
             print("Invalid input; enter a valid number")
@@ -79,7 +79,43 @@ def item_display(item_list, user_choice):
             count += 1
         float_total = [float(i) for i in total]
         print("The expected price for {} items: ${}".format(count, sum(float_total)))
-    return item_display_list
+        return sorted_req_list
+
+
+def mark_item(m_list):
+    list_with_count = []
+    marked_item = []
+    count = 0
+    for item in m_list:
+        item_info = [count, item[0], item[1], item[2], item[3]]
+        list_with_count.append(item_info)
+        count += 1
+
+    while True:
+        try:
+            count_list = []
+            for item in list_with_count:
+                count_list.append(item[0])
+
+            user_mark = int(input("Enter the number of an item to mark as completed: "))
+            while user_mark not in count_list:
+                print("Invalid item number")
+                user_mark = int(input("Enter the number of an item to mark as completed: "))
+
+            for item in list_with_count:
+                if item[0] == user_mark:
+                    item[4] = "c"
+                    marked_item.append(item[1])
+                    marked_item.append(item[2])
+                    marked_item.append(item[3])
+                    marked_item.append(item[4])
+            break
+        except ValueError:
+            print("Invalid input; enter a valid number")
+            continue
+
+    print("{} marked as completed".format(marked_item[0]))
+    return marked_item
 
 
 def main():
@@ -100,10 +136,10 @@ def main():
     while user_choice != "q":
         if user_choice == "r":
             print("You chose R")
-            r_list = item_display(item_list, user_choice)
+            item_display(item_list, user_choice)
         elif user_choice == "c":
             print("You chose C")
-            c_list = item_display(item_list, user_choice)
+            item_display(item_list, user_choice)
         elif user_choice == "a":
             print("You chose A")
             new_item = add_item()
@@ -111,6 +147,11 @@ def main():
         elif user_choice == "m":
             print("You chose M")
             m_list = item_display(item_list, user_choice)
+            comp_item = mark_item(m_list)
+            for item in item_list:
+                if item[0] == comp_item[0]:
+                    item_list.remove(item)
+                    item_list.append(comp_item)
         else:
             print("Invalid option, please choose again")
         print("Menu: ")
@@ -126,13 +167,6 @@ def main():
         item = ",".join(item)
         file_save.write(str(item) + "\n")
     file_save.close()
-
-    """
-
-    for item in item_list:
-        print(item)
-
-    """
 
     print("Done")
 
