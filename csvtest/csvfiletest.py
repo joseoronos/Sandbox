@@ -23,7 +23,7 @@ def add_item():
     while True:
         try:
             product_price = float(input("Price: $"))
-            while product_price <= 0:
+            while product_price < 0:
                 print("Price must be >= 0")
                 product_price = float(input("Price: "))
             break
@@ -49,7 +49,7 @@ def add_item():
     new_product_info.append(str(product_priority))
     new_product_info.append(req)
 
-    print("{}, ${} (priority {}) added to the shopping list".format(user_product, product_price, product_priority))
+    print("{}, ${:.2f} (priority {}) added to the shopping list".format(user_product, product_price, product_priority))
     return new_product_info
 
 
@@ -63,6 +63,8 @@ def item_display(item_list, user_choice):
         for item_info in item_list:
             if item_info[3] == "r":
                 item_display_list.append(item_info)
+        if len(item_display_list) == 0:
+            return item_display_list
 
     if len(item_display_list) == 0:
         if user_choice == "r":
@@ -147,11 +149,14 @@ def main():
         elif user_choice == "m":
             print("You chose M")
             m_list = item_display(item_list, user_choice)
-            comp_item = mark_item(m_list)
-            for item in item_list:
-                if item[0] == comp_item[0]:
-                    item_list.remove(item)
-                    item_list.append(comp_item)
+            if len(m_list) == 0:
+                print("No required items")
+            else:
+                comp_item = mark_item(m_list)
+                for item in item_list:
+                    if item[0] == comp_item[0]:
+                        item_list.remove(item)
+                        item_list.append(comp_item)
         else:
             print("Invalid option, please choose again")
         print("Menu: ")
@@ -168,7 +173,9 @@ def main():
         file_save.write(str(item) + "\n")
     file_save.close()
 
-    print("Done")
+    print("{} items saved to items.csv".format(len(item_list)))
+
+    print("Have a nice day :)")
 
 
 main()
