@@ -1,5 +1,24 @@
+"""
+Name: Jose Oronos
+Date: 
+"""
+
 import csv
 from operator import itemgetter
+
+"""
+Pseudocode for load_files function
+
+define function as load_files()
+    set f_read = open file "items.csv" in read mode
+    set csv_f = csv.reader(f_read)
+    items = empty list
+    for row in csv_f:
+        append row into items
+    close f_read
+    return list
+
+"""
 
 
 def load_files():
@@ -16,7 +35,7 @@ def add_item():
     new_product_info = []
 
     user_product = str(input("Item name: "))
-    while user_product == " " or user_product == "":
+    while user_product.isspace() or user_product == "":
         print("Item input cannot be blank")
         user_product = str(input("Item name: "))
 
@@ -84,6 +103,47 @@ def item_display(item_list, user_choice):
         return sorted_req_list
 
 
+"""
+Pseudocode for mark_item function
+
+define function as mark_item(m_list):
+    set list_with_count = empty list
+    set marked_item = empty list
+    set count = 0
+    for items in m_list
+        set item_info = count, product name, product price, priority, and mark
+        append item_info into list_with_count
+        increment count by 1
+
+    set stop_check = True
+    while stop_check = True:
+        Try this:
+            set count_list = empty list
+            for items in list_with_count:
+                append count to count_list
+
+            set user_mark = user input
+            while user_mark is not in count_list:
+                display "Invalid item number"
+                set user_mark = user input
+
+            for items in list_with_count:
+                if count == user_mark:
+                    set mark == "c"
+                    append product name into marked_item
+                    append product price into marked_item
+                    append priority into marked_item
+                    append mark into marked_item
+            stop_check = False
+        detects a value error:
+            display "Invalid input;  enter a valid number"
+            continue Try
+
+        display "(Product name) marked as completed"
+        return marked_item
+"""
+
+
 def mark_item(m_list):
     list_with_count = []
     marked_item = []
@@ -93,7 +153,8 @@ def mark_item(m_list):
         list_with_count.append(item_info)
         count += 1
 
-    while True:
+    stop_check = True
+    while stop_check == True:
         try:
             count_list = []
             for item in list_with_count:
@@ -111,7 +172,7 @@ def mark_item(m_list):
                     marked_item.append(item[2])
                     marked_item.append(item[3])
                     marked_item.append(item[4])
-            break
+            stop_check = False
         except ValueError:
             print("Invalid input; enter a valid number")
             continue
