@@ -1,6 +1,8 @@
 """
 Name: Jose Oronos
-Date: 
+Date: 16/08/16
+Details: This is a program which lets you create a shopping list
+GitHub: https://github.com/joseoronos/programming-assignment
 """
 
 import csv
