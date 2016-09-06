@@ -41,24 +41,26 @@ def add_item():
         print("Item input cannot be blank")
         user_product = str(input("Item name: "))
 
-    while True:
+    check = False
+    while check == False:
         try:
             product_price = float(input("Price: $"))
             while product_price < 0:
                 print("Price must be >= 0")
                 product_price = float(input("Price: "))
-            break
+            check = True
         except ValueError:
             print("Invalid input; enter a valid number")
             continue
 
-    while True:
+    check = False
+    while check == False:
         try:
             product_priority = int(input("Priority: "))
             while product_priority != 1 and product_priority != 2 and product_priority != 3:
                 print("Priority must be 1, 2 or 3")
                 product_priority = int(input("Priority: "))
-            break
+            check = True
         except ValueError:
             print("Invalid input; enter a valid number")
             continue
@@ -156,7 +158,7 @@ def mark_item(m_list):
         count += 1
 
     stop_check = True
-    while stop_check == True:
+    while stop_check is not False:
         try:
             count_list = []
             for item in list_with_count:
